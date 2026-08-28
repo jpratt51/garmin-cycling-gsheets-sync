@@ -36,6 +36,10 @@ def main():
     
     if not all([garmin_email, garmin_password, google_creds_json, sheet_id]):
         print("❌ Missing required environment variables")
+        print(f"   GARMIN_EMAIL: {'✓' if garmin_email else '✗'}")
+        print(f"   GARMIN_PASSWORD: {'✓' if garmin_password else '✗'}")
+        print(f"   GOOGLE_CREDENTIALS: {'✓' if google_creds_json else '✗'}")
+        print(f"   SHEET_ID: {'✓' if sheet_id else '✗'}")
         return
     
     # Connect to Garmin
@@ -48,10 +52,10 @@ def main():
         print(f"❌ Failed to connect to Garmin: {e}")
         return
     
-    # Get recent activities (last 20)
+    # Get recent activities (increased to 50 to ensure rides aren't crowded out)
     print("Fetching recent activities...")
     try:
-        activities = garmin.get_activities(0, 20)
+        activities = garmin.get_activities(0, 50)
         print(f"Found {len(activities)} total activities")
     except Exception as e:
         print(f"❌ Failed to fetch activities: {e}")
