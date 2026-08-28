@@ -71,7 +71,7 @@ def main():
     # Filter for running activities only
     running_activities = [
         activity for activity in activities 
-        if activity.get('activityType', {}).get('typeKey', '').lower() in ['running', 'treadmill_running', 'trail_running']
+        if activity.get('activityType', {}).get('typeKey', '').lower() in ['cycling', 'virtual_ride', 'gravel_cycling', 'mountain_biking']
     ]
     
     print(f"Found {len(running_activities)} running activities")
