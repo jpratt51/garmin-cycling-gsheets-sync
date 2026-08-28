@@ -17,16 +17,16 @@ def format_duration(seconds):
     """Convert seconds to minutes (rounded to 2 decimals)"""
     return round(seconds / 60, 2) if seconds else 0
 
-def format_pace(distance_meters, duration_seconds):
-    """Calculate pace/speed in min/km"""
+def format_speed(distance_meters, duration_seconds):
+    """Calculate speed in mph"""
     if not distance_meters or not duration_seconds:
         return 0
-    distance_km = distance_meters / 1000
-    pace_seconds = duration_seconds / distance_km
-    return round(pace_seconds / 60, 2)
+    distance_miles = distance_meters / 1609.34
+    duration_hours = duration_seconds / 3600
+    return round(distance_miles / duration_hours, 2)
 
 def main():
-    print("Starting Garmin cycling activities sync...")
+    print("Starting Garmin cycling activities sync (Imperial Units)...")
     
     # Get credentials from environment variables
     garmin_email = os.environ.get('GARMIN_EMAIL')
@@ -115,23 +115,23 @@ def main():
             
             activity_name = activity.get('activityName', 'Ride')
             distance_meters = activity.get('distance', 0)
-            distance_km = round(distance_meters / 1000, 2) if distance_meters else 0
+            distance_miles = round(distance_meters / 1609.34, 2) if distance_meters else 0
             duration_seconds = activity.get('duration', 0)
             duration_min = format_duration(duration_seconds)
-            avg_pace = format_pace(distance_meters, duration_seconds)
+            avg_speed = format_speed(distance_meters, duration_seconds)
             avg_hr = activity.get('averageHR', 0) or 0
             max_hr = activity.get('maxHR', 0) or 0
             calories = activity.get('calories', 0) or 0
             avg_cadence = activity.get('averageBikingCadenceInRevPerMinute', 0) or 0
-            elevation_gain = round(activity.get('elevationGain', 0), 1) if activity.get('elevationGain') else 0
+            elevation_gain = round(activity.get('elevationGain', 0) * 3.28084, 1) if activity.get('elevationGain') else 0
             activity_type = activity.get('activityType', {}).get('typeKey', 'cycling')
             
             row = [
                 activity_date,
                 activity_name,
-                distance_km,
+                distance_miles,
                 duration_min,
-                avg_pace,
+                avg_speed,
                 avg_hr,
                 max_hr,
                 calories,
@@ -141,7 +141,7 @@ def main():
             ]
             
             sheet.append_row(row)
-            print(f"✅ Added: {activity_date} - {activity_name} ({distance_km} km)")
+            print(f"✅ Added: {activity_date} - {activity_name} ({distance_miles} mi)")
             new_entries += 1
             
         except Exception as e:
@@ -155,4 +155,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
