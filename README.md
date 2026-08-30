@@ -17,10 +17,10 @@ Automatically syncs Garmin Connect Cycling data to Google Sheets, runs daily.
     - Elevation gain (ft)
     - Average respiration rate per minute
     - Temperature in fahrenheit
-    - Aerobic Training Effect
-    - Anaerobic Training Effect
+    - Aerobic training effect
+    - Anaerobic training effect
     - Heart rate minutes per zone (1-5)
-    - Activity Type
+    - Activity type
 
 * Avoids duplicates by checking existing dates in your sheet
 * Appends new activity to your Google Sheet
@@ -38,7 +38,7 @@ activities = garmin.get_activities(0, 10)  # Increase this number
 * Create a new sheet called "Garmin Data"
 * Add headers in row 1 (copy/paste below)
     ```
-    Date	Activity Name	Distance (miles)	Duration (min)	Avg Speed (mph)	Avg HR	Max HR	Calories	Avg Cadence	Elevation Gain (ft)	Avg Respiration	Temperature (F)	Aerobic Training Effect	Anaerobic Training Effect	Zone 1 HR (min)	Zone 2 HR (min)	Zone 3 HR (min)	Zone 4 HR (min)	Zone 5 HR (min)	Activity Type
+    Date	Activity Name	Distance (miles)	Duration (min)	Avg Speed (mph)	Avg HR	Max HR	Calories	Avg Cadence	Elevation Gain (ft)	Avg Respiration	Temperature (°F)	Aerobic Training Effect	Anaerobic Training Effect	Zone 1 HR (min)	Zone 2 HR (min)	Zone 3 HR (min)	Zone 4 HR (min)	Zone 5 HR (min)	Activity Type
     ```
 * If you're testing locally, then share and give editor access to your Google Cloud Service Account.
 
