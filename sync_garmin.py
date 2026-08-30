@@ -61,11 +61,7 @@ def main():
         print(f"❌ Failed to fetch activities: {e}")
         return
     
-    # DEBUG: Print out the raw activityType for everything fetched
-    for i, act in enumerate(activities):
-        print(f"DEBUG Activity {i+1} Name: '{act.get('activityName')}' | Type Object: {act.get('activityType')}")
-    
-       # Filter for cycling activities using correct Garmin typeKeys
+    # Filter for cycling activities using correct Garmin typeKeys
     cycling_activities = [
         activity for activity in activities 
         if activity.get('activityType', {}).get('typeKey', '').lower() in [
@@ -122,6 +118,12 @@ def main():
                 continue
             
             activity_name = activity.get('activityName', 'Ride')
+            
+            # DEBUG: Print full raw keys available for this activity to check field names
+            print(f"DEBUG Keys for '{activity_name}' ({activity_date}): {list(activity.keys())}")
+            print(f"DEBUG Raw respiration value: {activity.get('averageRespiration')}")
+            print(f"DEBUG Raw temperature value: {activity.get('averageTemperature')}")
+
             distance_meters = activity.get('distance', 0)
             distance_miles = round(distance_meters / 1609.34, 2) if distance_meters else 0
             duration_seconds = activity.get('duration', 0)
@@ -133,10 +135,10 @@ def main():
             avg_cadence = activity.get('averageBikingCadenceInRevPerMinute', 0) or 0
             elevation_gain = round(activity.get('elevationGain', 0) * 3.28084, 1) if activity.get('elevationGain') else 0
             activity_type = activity.get('activityType', {}).get('typeKey', 'cycling')
+            
             avg_respiration = activity.get('averageRespiration', 0) or 0
             avg_temp_c = activity.get('averageTemperature')
             avg_temp_f = round(avg_temp_c * 9/5 + 32, 1) if avg_temp_c is not None else 0
-
             
             row = [
                 activity_date,
@@ -169,3 +171,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
