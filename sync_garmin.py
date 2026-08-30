@@ -133,6 +133,10 @@ def main():
             avg_cadence = activity.get('averageBikingCadenceInRevPerMinute', 0) or 0
             elevation_gain = round(activity.get('elevationGain', 0) * 3.28084, 1) if activity.get('elevationGain') else 0
             activity_type = activity.get('activityType', {}).get('typeKey', 'cycling')
+                        avg_respiration = activity.get('averageRespiration', 0) or 0
+            avg_temp_c = activity.get('averageTemperature')
+            avg_temp_f = round(avg_temp_c * 9/5 + 32, 1) if avg_temp_c is not None else 0
+
             
             row = [
                 activity_date,
@@ -145,6 +149,8 @@ def main():
                 calories,
                 avg_cadence,
                 elevation_gain,
+                avg_respiration,
+                avg_temp_f,
                 activity_type
             ]
             
