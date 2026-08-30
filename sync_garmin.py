@@ -65,15 +65,15 @@ def main():
     for i, act in enumerate(activities):
         print(f"DEBUG Activity {i+1} Name: '{act.get('activityName')}' | Type Object: {act.get('activityType')}")
     
-    # Filter for cycling activities using correct Garmin typeKeys
+       # Filter for cycling activities using correct Garmin typeKeys
     cycling_activities = [
         activity for activity in activities 
         if activity.get('activityType', {}).get('typeKey', '').lower() in [
-            'road_cycling', 'cycling', 'gravel_unpaved_cycling', 
+            'road_biking', 'road_cycling', 'cycling', 'gravel_unpaved_cycling', 
             'mountain_biking', 'indoor_cycling', 'virtual_cycling', 'biking'
         ]
     ]
-    
+
     print(f"Found {len(cycling_activities)} cycling activities")
     
     if not cycling_activities:
