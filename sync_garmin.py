@@ -55,7 +55,7 @@ def main():
     # Get recent activities
     print("Fetching recent activities...")
     try:
-        activities = garmin.get_activities(0, 10)
+        activities = garmin.get_activities(0, 50)
         print(f"Found {len(activities)} total activities")
     except Exception as e:
         print(f"❌ Failed to fetch activities: {e}")
@@ -127,10 +127,8 @@ def main():
             avg_hr = activity.get('averageHR', 0) or 0
             max_hr = activity.get('maxHR', 0) or 0
             calories = activity.get('calories', 0) or 0
-            bmr_calories = activity.get('bmrCalories', 0) or 0
-            active_calories = calories - bmr_calories
             avg_cadence = activity.get('averageBikingCadenceInRevPerMinute', 0) or 0
-            total_ascent = round(activity.get('elevationGain', 0) * 3.28084, 1) if activity.get('elevationGain') else 0
+            elevation_gain = round(activity.get('elevationGain', 0) * 3.28084, 1) if activity.get('elevationGain') else 0
             activity_type = activity.get('activityType', {}).get('typeKey', 'cycling')
             
             avg_respiration = activity.get('avgRespirationRate', 0) or 0
@@ -155,6 +153,7 @@ def main():
                 max_hr,
                 calories,
                 avg_cadence,
+                elevation_gain,
                 avg_respiration,
                 max_temp_f,
                 aerobic_te,
@@ -164,8 +163,6 @@ def main():
                 hr_zone_3,
                 hr_zone_4,
                 hr_zone_5,
-                total_ascent,
-                active_calories,
                 activity_type
             ]
             
@@ -184,4 +181,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
