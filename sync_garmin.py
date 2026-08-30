@@ -52,7 +52,7 @@ def main():
         print(f"❌ Failed to connect to Garmin: {e}")
         return
     
-    # Get recent activities (increased to 50 to ensure rides aren't crowded out)
+    # Get recent activities
     print("Fetching recent activities...")
     try:
         activities = garmin.get_activities(0, 50)
@@ -61,12 +61,16 @@ def main():
         print(f"❌ Failed to fetch activities: {e}")
         return
     
+    # DEBUG: Print out the raw activityType for everything fetched
+    for i, act in enumerate(activities):
+        print(f"DEBUG Activity {i+1} Name: '{act.get('activityName')}' | Type Object: {act.get('activityType')}")
+    
     # Filter for cycling activities using correct Garmin typeKeys
     cycling_activities = [
         activity for activity in activities 
         if activity.get('activityType', {}).get('typeKey', '').lower() in [
             'road_cycling', 'cycling', 'gravel_unpaved_cycling', 
-            'mountain_biking', 'indoor_cycling', 'virtual_cycling'
+            'mountain_biking', 'indoor_cycling', 'virtual_cycling', 'biking'
         ]
     ]
     
@@ -159,4 +163,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
