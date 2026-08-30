@@ -118,11 +118,6 @@ def main():
                 continue
             
             activity_name = activity.get('activityName', 'Ride')
-            
-            # DEBUG: Print full raw keys available for this activity to check field names
-            print(f"DEBUG Keys for '{activity_name}' ({activity_date}): {list(activity.keys())}")
-            print(f"DEBUG Raw respiration value: {activity.get('averageRespiration')}")
-            print(f"DEBUG Raw temperature value: {activity.get('averageTemperature')}")
 
             distance_meters = activity.get('distance', 0)
             distance_miles = round(distance_meters / 1609.34, 2) if distance_meters else 0
