@@ -131,9 +131,17 @@ def main():
             elevation_gain = round(activity.get('elevationGain', 0) * 3.28084, 1) if activity.get('elevationGain') else 0
             activity_type = activity.get('activityType', {}).get('typeKey', 'cycling')
             
-            avg_respiration = activity.get('avgRespirationRate', 0) or 0
-            max_temp_c = activity.get('maxTemperature')
-            max_temp_f = round(max_temp_c * 9/5 + 32, 1) if max_temp_c is not None else 0
+            avg_respiration = activity.get('averageRespiration', 0) or 0
+            avg_temp_c = activity.get('averageTemperature')
+            avg_temp_f = round(avg_temp_c * 9/5 + 32, 1) if avg_temp_c is not None else 0
+            
+            aerobic_te = activity.get('aerobicTrainingEffect', 0) or 0
+            anaerobic_te = activity.get('anaerobicTrainingEffect', 0) or 0
+            hr_zone_1 = format_duration(activity.get('hrTimeInZone_1', 0))
+            hr_zone_2 = format_duration(activity.get('hrTimeInZone_2', 0))
+            hr_zone_3 = format_duration(activity.get('hrTimeInZone_3', 0))
+            hr_zone_4 = format_duration(activity.get('hrTimeInZone_4', 0))
+            hr_zone_5 = format_duration(activity.get('hrTimeInZone_5', 0))
             
             row = [
                 activity_date,
@@ -147,7 +155,14 @@ def main():
                 avg_cadence,
                 elevation_gain,
                 avg_respiration,
-                max_temp_f,
+                avg_temp_f,
+                aerobic_te,
+                anaerobic_te,
+                hr_zone_1,
+                hr_zone_2,
+                hr_zone_3,
+                hr_zone_4,
+                hr_zone_5,
                 activity_type
             ]
             
