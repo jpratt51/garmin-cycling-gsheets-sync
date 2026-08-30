@@ -1,24 +1,30 @@
 
-# 🏃🏽‍♂️ Garmin Run Data to Google Sheets Sync README
+# 🚴 Garmin Cycling Data to Google Sheets Sync README
 
-Automatically syncs Garmin Connect Running data to Google Sheets, runs daily.
+Automatically syncs Garmin Connect Cycling data to Google Sheets, runs daily.
 
 # What this project does?
 
-* Fetches your last 20 activities from Garmin Connect
-* Filters for running activities only (including treadmill and trail running)
+* Fetches your last 10 activities from Garmin Connect
+* Filters for cycling activities only
 * Extracts key running metrics:
 
-    - Distance in kilometers
+    - Distance in miles
     - Duration in minutes
-    - Average pace (min/km)
+    - Average pace (mph)
     - Average and max heart rate
     - Calories burned
-    - Average cadence (steps per minute)
-    - Elevation gain
+    - Average cadence (cycles per minute)
+    - Elevation gain (ft)
+    - Average respiration rate per minute
+    - Temperature in fahrenheit
+    - Aerobic Training Effect
+    - Anaerobic Training Effect
+    - Heart rate minutes per zone (1-5)
+    - Activity Type
 
 * Avoids duplicates by checking existing dates in your sheet
-* Appends new runs to your Google Sheet
+* Appends new activity to your Google Sheet
 * Runs daily, automatically
 
 # Want to sync more activities? 
@@ -33,7 +39,7 @@ activities = garmin.get_activities(0, 20)  # Increase this number
 * Create a new sheet called "Garmin Data"
 * Add headers in row 1 (copy/paste below)
     ```
-    Date	Activity Name	Distance (km)	Duration (min)	Avg Pace (min/km)	Avg HR	Max HR	Calories	Avg Cadence	Elevation Gain (m)	Activity Type
+    Date	Activity Name	Distance (miles)	Duration (min)	Avg Pace (mph)	Avg HR	Max HR	Calories	Avg Cadence	Elevation Gain (m)	Avg Respiration Temperature (F) Aerobic Training Affect Anaerobic Training Effect Zone 1 HR (min) Zone 2 HR (min) Zone 3 HR (min) Zone 4 HR (min) Zone 5 HR (min) Activity Type
     ```
 * If you're testing locally, then share and give editor access to your Google Cloud Service Account.
 
@@ -52,7 +58,7 @@ activities = garmin.get_activities(0, 20)  # Increase this number
 
     - Go to "IAM & Admin" → "Service Accounts"
     - Click "Create Service Account"
-    - Name it "garmin-gsheets-run-sync" → Click Create
+    - Name it "garmin-gsheets-cycling-sync" → Click Create
     - Skip optional steps → Click Done
 
 * Create Key:
@@ -66,12 +72,12 @@ activities = garmin.get_activities(0, 20)  # Increase this number
 
     - Open your "Garmin Data" sheet
     - Click Share
-    - Add the service account email (looks like garmin-gsheets-run-sync@your-project.iam.- gserviceaccount.com)
+    - Add the service account email (looks like garmin-gsheets-cycling-sync@your-project.iam.- gserviceaccount.com)
     - Give it "Editor" access
 
 * Push to github
 ```
-cd garmin-gsheets-run-sync
+cd garmin-gsheets—cycling-sync
 git init
 git add .
 git commit -m "Initial commit"
@@ -79,7 +85,7 @@ git branch -M main
 ```
 * On GitHub:
 
-    - Create a new repository called "garmin-gsheets-run-sync"
+    - Create a new repository called "garmin-gsheets-cycling-sync"
     - Follow GitHub's instructions to push:
 
 * Add GitHub Secrets
